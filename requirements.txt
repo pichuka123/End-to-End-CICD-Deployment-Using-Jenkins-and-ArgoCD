@@ -1,1 +1,7 @@
 Flask==2.1.0
+gunicorn==20.1.0
+
+# requests==2.31.0 
+#(Only needed if your Flask app is making API calls) 
+#(e.g., calling another service, fetching data from external APIs)
+#If your app doesn’t call any external APIs, you can remove it.

@@ -3,12 +3,17 @@ FROM python:3.9-slim
 # Set working directory
 WORKDIR /app
 
+# Optional: add trusted hosts
 COPY requirements.txt .
+
 RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 5000
+
+# Copy the rest of the application code 
+COPY . /app
+
+# Set default command and expose the port 8080 which is from app.py
+EXPOSE 8080
 CMD ["python","app.py"]
+
+# To keep running a container when it is created
 ENTRYPOINT && /bin/bash 
-
-
-
