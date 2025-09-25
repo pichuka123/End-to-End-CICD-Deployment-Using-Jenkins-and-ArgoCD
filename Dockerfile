@@ -11,8 +11,8 @@ RUN pip install -r requirements.txt
 # Copy the rest of the application code 
 COPY . /app
 
-# Set default command and expose the port 8080 which is from app.py
-EXPOSE 8080
+# Set default command and expose the port 8081 which is from app.py
+EXPOSE 8081
 CMD ["python","app.py"]
 
 # To keep running a container when it is created
