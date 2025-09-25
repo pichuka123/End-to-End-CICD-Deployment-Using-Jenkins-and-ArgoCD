@@ -10,6 +10,12 @@ pipeline {
         url: 'https://github.com/pichuka123/jenkinsautomations.git'
       }
     }
+    stage('Docker Access Test') {
+      steps {
+        sh 'docker ps'
+      }
+    }
+
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t flask-application .'
