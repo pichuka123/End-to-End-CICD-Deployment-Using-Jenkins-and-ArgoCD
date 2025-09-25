@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t flask-app .'
+        sh 'docker build -t flask-application .'
       }
     }
     stage('Tag & Push') {
