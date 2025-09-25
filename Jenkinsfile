@@ -10,6 +10,7 @@ pipeline {
         url: 'https://github.com/pichuka123/jenkinsautomations.git'
       }
     }
+    
     stage('Docker Access Test') {
       steps {
         sh 'docker ps'
@@ -21,7 +22,8 @@ pipeline {
         sh 'docker build -t princecharu/flask-application:latest .'
       }
     }
-    stage('Tag & Push') {
+
+    stage('Tag Image & Push Image to DockerHub & Create Container') {
       steps {
         sh '''
         docker tag flask-application princecharu/flask-application:latest
