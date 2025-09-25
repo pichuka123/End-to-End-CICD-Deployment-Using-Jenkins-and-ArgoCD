@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git 'git@github.com:pichuka123/jenkinsautomations.git'
+        git 'https://github.com/pichuka123/jenkinsautomations.git'
       }
     }
     stage('Build Docker Image') {
