@@ -15,5 +15,4 @@ COPY . /app
 EXPOSE 8081
 CMD ["python","app.py"]
 
-# To keep running a container when it is created
-ENTRYPOINT && /bin/bash 
+
