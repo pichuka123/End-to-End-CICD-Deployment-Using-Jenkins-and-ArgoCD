@@ -29,7 +29,7 @@ pipeline {
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
         docker push princecharu/flask-application:latest
         docker rm -f flask-application || true
-        docker run -d -p 8081:8081 princecharu/flask-application:latest
+        docker run -d -p 8082:8082 princecharu/flask-application:latest
         '''
         /*
         docker run -d -p 5000:5000 princecharu/flask-app - this can be kept in steps, but,
