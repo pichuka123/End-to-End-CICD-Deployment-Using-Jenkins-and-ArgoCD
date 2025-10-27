@@ -1,9 +1,10 @@
 pipeline {
   agent any
 
-  tools {
+  /*tools {
     maven 'maven3'
   }
+  --- not requored for python applications */ 
 
   triggers {
 		githubPush()
