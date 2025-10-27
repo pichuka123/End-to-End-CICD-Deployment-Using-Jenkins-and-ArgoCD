@@ -62,7 +62,7 @@ pipeline {
           }
           sh 'docker login -u princecharu -p ${dockerhub}'
           // Push the Docker image to Docker Hub
-          docker push princecharu/flask-application:${BUILD_NUMBER}
+          sh 'docker push princecharu/flask-application:${BUILD_NUMBER}'
         }
       }
     }
