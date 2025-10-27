@@ -23,6 +23,6 @@ spec:
     spec:
       containers:
         - name: flask-pod-cont
-          image: princecharu/flask-application:71
+          image: princecharu/flask-application:72
           ports:
             - containerPort: 8082
