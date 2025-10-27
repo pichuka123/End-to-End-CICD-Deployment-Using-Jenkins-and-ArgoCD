@@ -1,15 +1,32 @@
 pipeline {
   agent any
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')  // from Jenkins 'Credentials' Configuration
+
+  tools {
+    maven 'maven3'
   }
+
   stages {
+
     stage('Checkout') {
       steps {
+        echo 'Cloning GIT HUB Repo'
         git branch: 'main',
-        url: 'https://github.com/pichuka123/jenkinsautomations.git'
+        url: 'https://github.com/pichuka123/End-to-End-CICD-Deployment-Using-Jenkins-and-ArgoCD.git'
       }
     }
+  
+
+    stage('SonarQube Scan') {
+      steps {
+        echo 'Scanning project'
+        // List directory contents for debugging purposes
+        sh 'ls -ltr'
+        // Run SonarQube scan with specified SonarQube server and login token
+        sh ''' mvn sonar:sonar \\
+        -Dsonar.host.url=http://100.26.227.191:9000 \\
+        -Dsonar.login=squ_19733ad4e43d54992ef61923b91447e2d17a3062'''
+        }
+      }
 
     stage('Docker Access Test') {
       steps {
@@ -19,30 +36,64 @@ pipeline {
 
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t princecharu/flask-application:latest .'
+        // Tag the image with the current build number
+        sh 'docker build -t princecharu/flask-application:${BUILD_NUMBER} -f Dockerfile .'
       }
     }
 
-    stage('Tag Image & Push Image to DockerHub & Create Container') {
+
+    stage('Scan Docker Image using Trivy') { 
+            steps { 
+                echo 'scanning Image' 
+                sh 'trivy image princecharu/flask-application:${BUILD_NUMBER}' 
+            } 
+        }
+
+    stage('Push Image to DockerHub') {
       steps {
-        sh '''
-        echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-        docker push princecharu/flask-application:latest
-        docker rm -f flask-application || true
-        docker run -d -p 8082:8082 princecharu/flask-application:latest
-        '''
-        /*
-        docker run -d -p 5000:5000 princecharu/flask-app - this can be kept in steps, but,
-        this step -> docker run -d -p 5000:5000 princecharu/flask-app here is optional, 
-        just to check app is runnig or not using EC2DNS:5000, for checking purpose, 
-        we are keeping this here to check anyway.
-        and
-        docker run -d -p 80:5000 princecharu/flask-app 
-        here is optional, it is to run the app with 80 port without updating inboud port 5000 at Security Group 
-        of EC2 Instance
-        */ 
+
+        script {
+          // Use Dockerhub credentials to access Docker Hub
+          withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+          }
+          sh 'docker login -u pichuka123 -p ${dockerhub}'
+          // Push the Docker image to Docker Hub
+          docker push princecharu/flask-application:${BUILD_NUMBER}
+          
+        }
       }
     }
+
+      stage('Update Deployment File with Build Number here') {
+
+        environment {
+        GIT_REPO_NAME = "End-to-End-CICD-Deployment-Using-Jenkins-and-ArgoCD"
+        GIT_USER_NAME = "pichuka123"
+        }
+
+        steps {
+        withCredentials([string(credentialsId: 'githubtoken', variable: 'githubtoken')]) {
+        }
+
+        sh '''
+        # Configure git user
+        git config user.email "prince.charu7@gmail.com"
+        git config user.name "pichuka123"
+        
+        # Replace the tag in the deployment YAML file with the current build number
+        sed -i "s/flask-application:.*/flask-application:${BUILD_NUMBER}/g" deploymentfiles/deployment.yml
+        
+        #Stage all changes
+        git add .
+        
+        # Commit changes with a message containing the build number
+        git commit -m "Updating deployment image to version ${BUILD_NUMBER}"
+        
+        #Push changes to the main branch of the GitHub repository
+        git push
+        https://${githubtoken}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main '''
+     }
   }
+}
 }
 
