@@ -1,79 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f2f5;
-            margin: 0;
-        }
-        .login-container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #333333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555555;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            border: 1px solid #dddddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flask • CI/CD • Kubernetes</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      margin-bottom: 25px;
+      color: #dcdcdc;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 25px;
+      background: linear-gradient(90deg, #ff6b6b, #feca57);
+      color: #111;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .highlight {
+      color: #4dd0e1;
+      font-weight: 700;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .footer span {
+      color: #ffd166;
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(90deg, #7c3aed, #06b6d4);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #06b6d4, #7c3aed);
+    }
+  </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form action="#" method="POST"> <!-- Replace '#' with your server-side script URL -->
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Login</button>
-        </form>
+  <div class="card">
+    <div class="badge">🚀 CI/CD • Kubernetes • Flask</div>
+    <div class="title">Flask App Deployed via CI/CD on Kubernetes</div>
+    <div class="subtitle">
+      This project showcases the power of modern DevOps — built with <span class="highlight">Flask</span>,
+      containerized with <span class="highlight">Docker</span>,
+      and deployed seamlessly through a <span class="highlight">CI/CD pipeline</span> on Kubernetes.
     </div>
+
+    <button onclick="alert('CI/CD Success! Your Flask app is live 🎉')">Celebrate Deployment 🎉</button>
+
+    <div class="footer">
+      <p>Built with ❤️ using <span>Jenkins</span>, <span>Docker</span>, and <span>Kubernetes</span></p>
+    </div>
+  </div>
 </body>
 </html>
