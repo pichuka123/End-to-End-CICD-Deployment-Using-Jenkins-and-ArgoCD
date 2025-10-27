@@ -5,6 +5,10 @@ pipeline {
     maven 'maven3'
   }
 
+  triggers {
+		githubPush()
+	}
+
   stages {
 
     stage('Checkout') {
@@ -56,10 +60,9 @@ pipeline {
           // Use Dockerhub credentials to access Docker Hub
           withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
           }
-          sh 'docker login -u pichuka123 -p ${dockerhub}'
+          sh 'docker login -u princecharu -p ${dockerhub}'
           // Push the Docker image to Docker Hub
           docker push princecharu/flask-application:${BUILD_NUMBER}
-          
         }
       }
     }
