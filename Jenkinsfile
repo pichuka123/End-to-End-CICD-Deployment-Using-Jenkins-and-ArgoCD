@@ -59,8 +59,8 @@ pipeline {
         script {
           // Use Dockerhub credentials to access Docker Hub
           withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+          sh 'docker login -u princecharu --password-stdin ${dockerhub}'
           }
-          sh 'docker login -u princecharu -p ${dockerhub}'
           // Push the Docker image to Docker Hub
           sh 'docker push princecharu/flask-application:${BUILD_NUMBER}'
         }
@@ -76,8 +76,6 @@ pipeline {
 
         steps {
         withCredentials([string(credentialsId: 'githubtoken', variable: 'githubtoken')]) {
-        }
-
         sh '''
         # Configure git user
         git config user.email "prince.charu7@gmail.com"
@@ -94,8 +92,9 @@ pipeline {
         
         #Push changes to the main branch of the GitHub repository
         git push https://${githubtoken}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main '''
+      }
      }
-  }
-}
+   }
+ }
 }
 
