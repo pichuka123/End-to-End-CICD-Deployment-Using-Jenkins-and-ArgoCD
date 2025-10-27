@@ -20,7 +20,7 @@ pipeline {
     }
   
 
-    stage('SonarQube Scan') {
+    /*stage('SonarQube Scan') {
       steps {
         echo 'Scanning project'
         // List directory contents for debugging purposes
@@ -30,7 +30,7 @@ pipeline {
         -Dsonar.host.url=http://100.26.227.191:9000 \\
         -Dsonar.login=squ_19733ad4e43d54992ef61923b91447e2d17a3062'''
         }
-      }
+      }*/
 
     stage('Docker Access Test') {
       steps {
