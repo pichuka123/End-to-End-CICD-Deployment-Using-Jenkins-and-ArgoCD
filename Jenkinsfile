@@ -59,7 +59,7 @@ pipeline {
         script {
           // Use Dockerhub credentials to access Docker Hub
           withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-          sh 'docker login -u princecharu --password-stdin ${dockerhub}'
+          sh 'docker login -u princecharu -p ${dockerhub}'
           }
           // Push the Docker image to Docker Hub
           sh 'docker push princecharu/flask-application:${BUILD_NUMBER}'
