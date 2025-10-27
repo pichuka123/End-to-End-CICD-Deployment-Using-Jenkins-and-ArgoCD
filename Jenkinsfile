@@ -90,8 +90,7 @@ pipeline {
         git commit -m "Updating deployment image to version ${BUILD_NUMBER}"
         
         #Push changes to the main branch of the GitHub repository
-        git push
-        https://${githubtoken}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main '''
+        git push https://${githubtoken}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main '''
      }
   }
 }
