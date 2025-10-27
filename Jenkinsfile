@@ -46,11 +46,3 @@ pipeline {
   }
 }
 
-//in case of SSH
-//checkout([$class: 'GitSCM',
-//          branches: [[name: '*/main']],
-//          userRemoteConfigs: [[
-//            url: 'git@github.com:pichuka123/flask-devops-app.git',
-//            credentialsId: 'github-ssh'
-//          ]]
-//])
